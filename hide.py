@@ -1,7 +1,6 @@
+from aminofix import Client, SubClient, exceptions
 from concurrent.futures import ThreadPoolExecutor
 from time import sleep
-from aminofix import *
-import aminofix
 import os
 
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -41,7 +40,7 @@ def main():
     s = 0
     while True:
         try:
-            clientz = aminofix.Client()
+            clientz = Client()
             clientz.login(email = input("E-mail: "), password = input("пароль: "))
             gd_print(f"Вошли в аккаунт '{clientz.profile.nickname}'")
             break
@@ -53,7 +52,7 @@ def main():
             user_link = clientz.get_from_code(input("Ссылка на пользователя: "))
             comId = user_link.comId
             userId = user_link.objectId
-            sub_clientz = aminofix.SubClient(comId = comId, profile = clientz.profile)
+            sub_clientz = SubClient(comId = comId, profile = clientz.profile)
             gd_print(f"Получили информацию о пользователе '{sub_clientz.get_user_info(userId).nickname}'")
             break
         except Exception as error:
